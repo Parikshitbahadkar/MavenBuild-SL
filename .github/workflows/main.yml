@@ -30,13 +30,15 @@ jobs:
           './target/*war' => /var/lib/tomcat9/webapps
        last_ssh: |
           sudo systemctl restart tomcat9
-    - name: Connect to Lab machine and trigger a Jenkins job 
-      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
-      with:
-        host: '43.204.37.217'
-        user: 'labuser'
-        pass: 'Nuvelabs123$'
-        port: 22
-        connect_timeout: 10s
-        first_ssh: |
-          curl -l -u admin:Root123$ http://localhost:8080/job/Devops-Project1/build?token=tokenpro
+    - name: Trigger Jenkins Job via SSH
+  uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+  with:
+    host: '43.205.118.149'
+    user: 'labuser'
+    pass: 'Nuvelabs123$'
+    port: 22
+    connect_timeout: 10s
+    first_ssh: |
+      curl -u admin:Root123$ "http://localhost:8080/job/Devops-Project1/build?token=tokenpro"
+    last_ssh: |
+      echo "Triggered Jenkins job Devops-Project1"
